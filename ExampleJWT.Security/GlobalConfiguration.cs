@@ -5,8 +5,6 @@ namespace ExampleJWT.Security
 {
     public sealed class GlobalConfiguration
     {
-        public const string RepositoryFilesPathSharePoint = @"wwwroot\SharePoint";
-
         private readonly static IConfigurationRoot configuration =
             new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false)
@@ -23,7 +21,7 @@ namespace ExampleJWT.Security
                 }
                 catch (NullReferenceException)
                 {
-                    throw new Exception("No se ha definido el proveedor para la base de datos en el archivo de configuración.");
+                    throw new Exception("No \"ProvideName\" defined");
                 }
             }
         }

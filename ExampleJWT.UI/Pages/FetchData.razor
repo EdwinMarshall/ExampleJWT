@@ -53,7 +53,7 @@ else
 
     private async Task GetData()
     {
-        var socialApi = RestService.For<ISocialApi>(Utils.BaseUriApi, new RefitSettings()
+        var socialApi = RestService.For<ISocialApi>(AppSettings.BaseUriApi, new RefitSettings()
         {
             AuthorizationHeaderValueGetter = () =>
                 Task.FromResult(Token)

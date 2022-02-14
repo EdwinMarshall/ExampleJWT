@@ -8,7 +8,7 @@
 
     <div class="main">
         <div class="top-row px-4">
-            <a href="#">¡Hello, @user.FistName @user.LastName!</a>
+            <a>¡Hello, @user.FistName @user.LastName!</a>
             <a href="#" @onclick="Logout">Log out</a>
         </div>
 
@@ -37,7 +37,7 @@
 
     private async Task GetUserSession(string token)
     {
-        var socialApi = RestService.For<ISocialApi>(Utils.BaseUriApi, new RefitSettings()
+        var socialApi = RestService.For<ISocialApi>(AppSettings.BaseUriApi, new RefitSettings()
         {
             AuthorizationHeaderValueGetter = () =>
                 Task.FromResult(Token)

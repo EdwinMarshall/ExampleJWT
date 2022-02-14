@@ -30,7 +30,7 @@ namespace ExampleJWT.UI
             services.AddScoped<ISocialApiService, SocialApi>();
 
             services.AddRefitClient<ISocialApi>()
-                    .ConfigureHttpClient(c => c.BaseAddress = new Uri(Utils.BaseUriApi))
+                    .ConfigureHttpClient(c => c.BaseAddress = new Uri(AppSettings.BaseUriApi))
                     .SetHandlerLifetime(TimeSpan.FromMinutes(2));
 
         }
