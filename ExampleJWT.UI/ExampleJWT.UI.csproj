@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Refit" Version="5.1.27" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="5.1.27" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExampleJWT.API\ExampleJWT.API.csproj" />
+    <ProjectReference Include="..\ExampleJWT.BusinessLogic\ExampleJWT.Models.csproj" />
+  </ItemGroup>
+
+</Project>

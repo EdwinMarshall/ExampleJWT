@@ -1,0 +1,69 @@
+﻿@inherits LayoutComponentBase
+@inject ISocialApi _api
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="#">¡Hello, @user.FistName @user.LastName!</a>
+            <a href="#" @onclick="Logout">Log out</a>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>
+@code{
+
+    private string Token { get; set; }
+    private User user { get; set; } = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        string token = await _localStorage.ReadToken("token", _storage);
+        if (string.IsNullOrEmpty(token))
+        {
+            _navigation.NavigateTo("/Login");
+        }
+
+        Token = token;
+
+        await GetUserSession(token);
+    }
+
+    private async Task GetUserSession(string token)
+    {
+        var socialApi = RestService.For<ISocialApi>(Utils.BaseUriApi, new RefitSettings()
+        {
+            AuthorizationHeaderValueGetter = () =>
+                Task.FromResult(Token)
+        });
+
+        var result = await socialApi.User_Get(token);
+
+        if (result.IsSuccessStatusCode)
+        {
+            if (result.Content != null)
+            {
+                user = result.Content;
+            }
+        }
+        else
+        {
+            if (result.Error.StatusCode.ToString().Equals("Unauthorized"))
+            {
+                _navigation.NavigateTo("/Login");
+            }
+        }
+    }
+
+    private async void Logout()
+    {
+        await _localStorage.Delete("token", _storage);
+        _navigation.NavigateTo("/Login");
+    }
+}

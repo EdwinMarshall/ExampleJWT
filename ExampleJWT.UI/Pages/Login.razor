@@ -1,0 +1,52 @@
+﻿@page "/Login"
+@using ExampleJWT.Models.Models
+@using ExampleJWT.UI.Helpers
+@layout LoginLayout
+@inject LocalStorageManager _localStorage
+@inject NavigationManager _navigation
+@inject ISocialApi _api
+
+<EditForm Model="@model" OnValidSubmit="AuthUser">
+    <DataAnnotationsValidator />
+    <label for="campo"><label class="mb-0">Email:</label></label>
+    <div class="input-group form-group">
+        <input type="email" @bind-value="model.Email" class="form-control input-group-prepend" required>
+    </div>
+
+    <label for="campo"><label class="mb-0">Password:</label></label>
+    <div class="input-group form-group input-group-prepend">
+        <input type="password" @bind-value="model.Password" class="form-control input-group-prepend" />
+    </div>
+
+    <div class="form-group text-center">
+        <input type="submit" value="Log In" class="btn float-center btn-primary text-center">
+    </div>
+
+    <div class="form-group text-center">
+        <p style="color:red;">@Error</p>
+    </div>
+
+</EditForm>
+
+@code {
+    private AuthRequest model { get; set; } = new();
+    private string Error { get; set; }
+
+    private async Task AuthUser()
+    {
+        var result = await _api.AuthUser(model);
+
+        if (result.IsSuccessStatusCode)
+        {
+            if (!string.IsNullOrEmpty(result.Content))
+            {
+                await _localStorage.SaveLocalStorage("token", result.Content, _storage);
+                _navigation.NavigateTo("/");
+            }
+        }
+        else
+        {
+            Error = result.Error.Content;
+        }
+    }
+}

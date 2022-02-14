@@ -1,0 +1,21 @@
+﻿@using System.Net.Http
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.JSInterop
+@using ExampleJWT.UI
+@using ExampleJWT.UI.Shared
+
+@using Refit;
+@using ExampleJWT.UI.Services;
+
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@using ExampleJWT.UI.Helpers
+@using ExampleJWT.Models.Models
+
+@inject NavigationManager _navigation
+@inject LocalStorageManager _localStorage
+@inject ProtectedLocalStorage _storage
