@@ -10,7 +10,7 @@ namespace ExampleJWT.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class LoginController : BaseController
+    public class LoginController : ControllerBase
     {
         private IAuthService _userService;
 
